@@ -1,0 +1,36 @@
+# Mendefinisikan versi Kubernetes API yang digunakan
+apiVersion: apps/v1
+
+# Menentukan jenis object
+kind: Deployment
+
+# Menentukan informasi tentang object
+metadata:
+  name: frontend-tier
+  labels:
+    app: karsajobs
+    tier: frontend
+
+# Menentukan spesifikasi yang diinginkan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+        app: karsajobs
+    spec:
+      containers:
+        - name: karsajobs-ui
+          image: ghcr.io/calvin-sirimase/calvin-sirimase/karsajobs:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: VUE_APP_BACKEND
+              value: http://172.16.2.4:30007
+              # value: http://$(GOSERVER_SERVICE_HOST):30007
+              # value: goserver
+              # value: http://$(GOSERVER_SERVICE_HOST):$(GOSERVER_SERVICE_PORT_GOSERVER)

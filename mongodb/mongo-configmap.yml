@@ -1,0 +1,13 @@
+# Mendefinisikan versi Kubernetes API yang digunakan
+apiVersion: v1
+
+# Menentukan jenis object
+kind: ConfigMap
+
+# Menentukan informasi tentang object
+metadata:
+  name: mongo-config
+data:
+  mongo.conf: |
+    storage:
+      dbPath:/data/db

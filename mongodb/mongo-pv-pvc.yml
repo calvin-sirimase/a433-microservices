@@ -1,0 +1,40 @@
+# Mendefinisikan versi Kubernetes API yang digunakan
+apiVersion: v1
+
+# Menentukan jenis object
+kind: PersistentVolume
+
+# Menentukan informasi tentang object
+metadata:
+  name: mongo-pv-volume
+  labels:
+    type: local
+
+# Menentukan spesifikasi yang diinginkan
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/db"
+---
+# Mendefinisikan versi Kubernetes API yang digunakan
+apiVersion: v1
+
+# Menentukan jenis object
+kind: PersistentVolumeClaim
+
+# Menentukan informasi tentang object
+metadata:
+  name: mongo-pv-claim
+
+# Menentukan spesifikasi yang diinginkan
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

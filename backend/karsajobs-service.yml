@@ -1,0 +1,22 @@
+# Mendefinisikan versi Kubernetes API yang digunakan
+apiVersion: v1
+
+# Menentukan jenis object
+kind: Service
+
+# Menentukan informasi tentang object
+metadata:
+  name: goserver
+  labels:
+    app: karsajobs
+    tier: backend
+
+# Menentukan spesifikasi yang diinginkan
+spec:
+  ports:
+    - port: 8080
+      nodePort: 30007
+  selector:
+    app: karsajobs
+    tier: backend
+  type: NodePort

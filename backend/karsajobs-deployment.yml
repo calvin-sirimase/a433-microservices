@@ -1,0 +1,45 @@
+# Mendefinisikan versi Kubernetes API yang digunakan
+apiVersion: apps/v1
+
+# Menentukan jenis object
+kind: Deployment
+
+# Menentukan informasi tentang object
+metadata:
+  name: backend-tier
+  labels:
+    app: karsajobs
+    tier: backend
+
+# Menentukan informasi tentang spec object
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: backend
+  template:
+    metadata:
+      labels:
+        tier: backend
+        app: karsajobs
+    spec:
+      containers:
+        - name: karsajobs
+          image: ghcr.io/calvin-sirimase/calvin-sirimase/karsajobs:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: APP_PORT
+              value: "8080"
+            - name: MONGO_HOST
+              value: mongodb
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  key: MONGO_ROOT_USERNAME
+                  name: mongo-auth
+            - name: MONGO_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: MONGO_ROOT_PASSWORD
+                  name: mongo-auth

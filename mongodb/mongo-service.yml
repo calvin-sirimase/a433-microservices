@@ -1,0 +1,24 @@
+# Mendefinisikan versi Kubernetes API yang digunakan
+apiVersion: v1
+
+# Menentukan jenis object
+kind: Service
+
+# Menentukan informasi tentang object
+metadata:
+  name: mongodb
+  labels:
+    app: karsajobs
+    tier: data
+
+# Menentukan spesifikasi yang diinginkan
+spec:
+  ports:
+    - port: 27017
+      protocol: TCP
+      targetPort: 27017
+      name: mongo
+  selector:
+    app: karsajobs
+    tier: data
+  type: ClusterIP

@@ -1,0 +1,19 @@
+# Mendefinisikan versi Kubernetes API yang digunakan
+apiVersion: v1
+
+# Menentukan jenis object
+kind: Service
+
+# Menentukan informasi tentang object
+metadata:
+  name: ui
+  labels:
+    app: karsajobs
+
+# Menentukan spesifikasi yang diinginkan
+spec:
+  ports:
+    - port: 8000
+  selector:
+    tier: frontend
+  type: NodePort
